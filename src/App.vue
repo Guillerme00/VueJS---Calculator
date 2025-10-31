@@ -15,7 +15,11 @@ const estado = reactive({
     } else if (estado.signal === 'mult') {
       return estado.n1 * estado.n2
     } else if (estado.signal === 'division') {
-      return estado.n1 / estado.n2
+      if (estado.n2 === 0){
+        return "ERRO"
+      } else {
+        return estado.n1 / estado.n2
+      }
     }
   };
 </script>
