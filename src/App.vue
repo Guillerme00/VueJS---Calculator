@@ -4,25 +4,37 @@ import { reactive } from 'vue';
 const estado = reactive({
   n1: 0,
   n2: 0,
-  signal: '',
+  signal: 'sum',
   })
+
+  function calculate(){
+    if (estado.signal === 'sum') {
+      return estado.n1 + estado.n2
+    } else if (estado.signal === 'sub') {
+      return estado.n1 - estado.n2
+    } else if (estado.signal === 'mult') {
+      return estado.n1 * estado.n2
+    } else if (estado.signal === 'division') {
+      return estado.n1 / estado.n2
+    }
+  };
 </script>
 
 <template>
 <div class="container">
   <div class="calculator">
     <h2 class="h-one">Input the first number</h2>
-    <input class="input inp-one" type="number" name="" id="">
-    <select class="selection" name="" id="">
+    <input class="input inp-one" type="number" @keyup="evento => estado.n1 = Number(evento.target.value)">
+    <select class="selection" @change="evento => estado.signal = evento.target.value">
       <option class="option" value="sum">+</option>
       <option class="option" value="sub">-</option>
       <option class="option" value="mult">*</option>
       <option class="option" value="division">÷</option>
     </select>
     <h2 class="h-two">Input the second number</h2>
-    <input class="input inp-two" type="number" name="" id="">
+    <input class="input inp-two" type="number" @keyup="evento => estado.n2 = Number(evento.target.value)">
     <div class="answer">
-      <h2 class="h-answer">The answer is<span class="answer-span"></span>.</h2>
+      <h2 class="h-answer">The answer is <span class="answer-span">{{ calculate() }}</span>.</h2>
     </div>
   </div>
 </div>
@@ -99,7 +111,7 @@ const estado = reactive({
   background-color: black;
   color: white;
 }
-.container, .calculator, .answer, .input, .selection {
+.container, .calculator, .answer, .input, .selection, .answer-span {
   background-color: transparent;
 }
 </style>
